@@ -9,7 +9,7 @@ class TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 700,
       child: ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (ctx, index) {
@@ -33,7 +33,7 @@ class TransactionsList extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),
