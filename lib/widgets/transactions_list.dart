@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models//transaction.dart';
-
 class TransactionsList extends StatelessWidget {
   final List transactions;
 
@@ -31,7 +29,7 @@ class TransactionsList extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    '\$${transactions[index].amount}',
+                    '\$${transactions[index].amount.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
