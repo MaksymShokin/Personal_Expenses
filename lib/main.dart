@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './widgets/user_transactions.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transactions_list.dart';
+import './models/transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +19,47 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Shoes',
+      date: DateTime.now(),
+      amount: 69.99,
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Milk',
+      date: DateTime.now(),
+      amount: 14.45,
+    )
+  ];
+
+  void _addTransaction(String title, double amount) {
+    setState(() {
+      _transactions.add(Transaction(
+        title: title,
+        amount: amount,
+        date: DateTime.now(),
+        id: 't${_transactions.length}',
+      ));
+    });
+  }
+
+  void _openAddTransactionModal(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (buildCtx) {
+        return NewTransaction(_addTransaction);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +68,7 @@ class MyHomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: null,
+            onPressed: () => _openAddTransactionModal(context),
           )
         ],
       ),
@@ -42,12 +84,13 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Chart!'),
               ),
             ),
-            UserTransactions()
+            TransactionsList(_transactions)
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        onPressed: () => _openAddTransactionModal(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
