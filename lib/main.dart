@@ -51,6 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't1',
       title: 'Shoes',
       date: DateTime.now(),
+      amount: 693232323.99,
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Milk',
+      date: DateTime.now(),
+      amount: 14.45,
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Shoes',
+      date: DateTime.now(),
       amount: 69.99,
     ),
     Transaction(
@@ -58,7 +70,19 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Milk',
       date: DateTime.now(),
       amount: 14.45,
-    )
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Shoes',
+      date: DateTime.now(),
+      amount: 69.99,
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Milk',
+      date: DateTime.now(),
+      amount: 14.45,
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -113,7 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionsList(_transactions),
+            TransactionsList(
+              _transactions,
+            ),
           ],
         ),
       ),
