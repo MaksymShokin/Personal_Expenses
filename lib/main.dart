@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         accentColor: Colors.amber, // only color, no swatch
+        // errorColor: Colors.red, // default
         fontFamily: 'Quicksand', // global font
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't1',
       title: 'Shoes',
       date: DateTime.now(),
-      amount: 693232323.99,
+      amount: 23.99,
     ),
     Transaction(
       id: 't2',
@@ -64,24 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Shoes',
       date: DateTime.now(),
       amount: 69.99,
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Milk',
-      date: DateTime.now(),
-      amount: 14.45,
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Shoes',
-      date: DateTime.now(),
-      amount: 69.99,
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Milk',
-      date: DateTime.now(),
-      amount: 14.45,
     ),
   ];
 
@@ -97,12 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  void _addTransaction(String title, double amount) {
+  void _addTransaction(String title, double amount, DateTime date) {
     setState(() {
       _transactions.add(Transaction(
         title: title,
         amount: amount,
-        date: DateTime.now(),
+        date: date,
         id: 't${_transactions.length}',
       ));
     });
@@ -115,6 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return NewTransaction(_addTransaction);
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((elem) => elem.id == id);
+    });
   }
 
   @override
@@ -139,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Chart(_recentTransactions),
             TransactionsList(
               _transactions,
+              _deleteTransaction,
             ),
           ],
         ),

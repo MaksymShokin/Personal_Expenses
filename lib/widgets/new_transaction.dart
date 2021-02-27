@@ -16,14 +16,18 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   void _addTx() {
-    final title = _titleController.text;
-    final amount = double.parse(_amountController.text);
-
-    if (title.isEmpty || amount <= 0) {
+    if (_amountController.text.isEmpty) {
       return;
     }
 
-    widget.addTransaction(title, amount);
+    final title = _titleController.text;
+    final amount = double.parse(_amountController.text);
+
+    if (title.isEmpty || amount <= 0 || _selectedDate == null) {
+      return;
+    }
+
+    widget.addTransaction(title, amount, _selectedDate);
 
     Navigator.of(context).pop(); //close bottom sheet
   }
